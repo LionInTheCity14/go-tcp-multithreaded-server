@@ -26,7 +26,7 @@ func handleConnection(conn net.Conn) {
 	fmt.Println("processing the request")
 	time.Sleep(1 * time.Second)
 
-	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\nHello from server!\r\n"))
+	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n Successfully received response from server!! \r\n"))
 }
 
 func main() {
@@ -49,6 +49,8 @@ func main() {
 			log.Fatal("Error accepting connection:", err)
 		}
 
-		handleConnection(conn)
+		// only difference between single threaded and multi threaded is this go keyword
+		// which make new thread for every new client
+		go handleConnection(conn)
 	}
 }
